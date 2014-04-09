@@ -12,6 +12,7 @@
 NSString *const keyStatus = @"status";
 NSString *const keyError = @"error";
 NSString *const keyAddress = @"address";
+NSString *const keyMessage = @"message";
 
 //Status types
 NSString *const statusInitialized = @"initialized";
@@ -254,7 +255,7 @@ NSString *const logInvalidService = @"Could not link characteristic to service";
         return;
     }
     
-    NSDictionary* returnObj = [NSDictionary dictionaryWithObjectsAndKeys: [service.identifier UUIDString], keyAddress, nil];
+    NSDictionary* returnObj = [NSDictionary dictionaryWithObjectsAndKeys: [service.UUID UUIDString], keyAddress, nil];
     
     if(error != nil){
         [returnObj setValue:statusError forKey:keyStatus];
