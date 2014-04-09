@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    id="com.michaelpallison.bluetoothperipheral"
+    version="1.0.0">
+    <engines>
+        <engine name="cordova" version=">=3.0.0" />
+    </engines>
+    <name>Bluetooth Peripheral LE</name>
+    <description>Use the Bluetooth Low Energy plugin to make your Phonegap app into a Bluetooth LE Peripheral.</description>
+    <author>Mike Allison, forked from Rand Dusing</author>
+    <keywords>bluetooth,low energy,smart</keywords>
+    <license>Apache 2.0</license>
+    <js-module src="www/bluetoothperipheral.js" name="BluetoothPeripheralLE">
+        <clobbers target="bluetoothperipheral" />
+    </js-module>
+    
+       <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="BluetoothPeripheralLE">
+                <param name="ios-package" value="BluetoothPeripheralLE" />
+            </feature>
+        </config-file>
+        <header-file src="src/ios/BluetoothPeripheralLE.h" />
+        <source-file src="src/ios/BluetoothPeripheralLE.m" />
+        <framework src="CoreBluetooth.framework" />
+    </platform>
+       <info>For more info: http://randdusing.com/ http://michaelpallison.com</info>
+</plugin>
