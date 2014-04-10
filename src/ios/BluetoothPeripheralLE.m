@@ -258,14 +258,13 @@ NSString *const logAlreadyAdvertising = @"Already Advertising";
     CBUUID *serviceUUID = [CBUUID UUIDWithString:service_uuid];
     CBUUID *characteristicUUID = [CBUUID UUIDWithString:characteristic_uuid];
     
-    
     currentCharacteristic = [[CBMutableCharacteristic alloc] initWithType:characteristicUUID
                                                                properties:CBCharacteristicPropertyRead
                                                                     value:value
                                                               permissions:CBAttributePermissionsReadable];
     
     CBUUID *userDescriptionUUID = [CBUUID UUIDWithString:CBUUIDCharacteristicUserDescriptionString];//or set it to the actual UUID->2901
-    currentDescriptor = [[CBMutableDescriptor alloc]initWithType:userDescriptionUUID value:@"Hello World"];
+    currentDescriptor = [[CBMutableDescriptor alloc]initWithType:userDescriptionUUID value:@"WHAT"];
     
     currentCharacteristic.descriptors = @[currentDescriptor];
     
