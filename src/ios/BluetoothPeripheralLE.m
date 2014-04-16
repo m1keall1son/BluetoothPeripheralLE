@@ -9,41 +9,41 @@
 #import "BluetoothPeripheralLE.h"
 
 //Object keys
-NSString *const keyStatus = @"status";
-NSString *const keyError = @"error";
-NSString *const keyAddress = @"address";
-NSString *const keyMessage = @"message";
-NSString *const keyValue = @"value";
-NSString *const keyUUID = @"UUID";
-NSString *const keyService = @"service";
-NSString *const keyCharacteristic = @"characteristic";
-NSString *const keyName = @"name";
+NSString *const mKeyStatus = @"status";
+NSString *const mKeyError = @"error";
+NSString *const mKeyAddress = @"address";
+NSString *const mKeyMessage = @"message";
+NSString *const mKeyValue = @"value";
+NSString *const mKeyUUID = @"UUID";
+NSString *const mKeyService = @"service";
+NSString *const mKeyCharacteristic = @"characteristic";
+NSString *const mKeyName = @"name";
 
 //Status types
-NSString *const statusInitialized = @"initialized";
-NSString *const statusAdvertising = @"advertising";
-NSString *const statusSuccess = @"success";
-NSString *const statusError = @"error";
+NSString *const mStatusInitialized = @"initialized";
+NSString *const mStatusAdvertising = @"advertising";
+NSString *const mStatusSuccess = @"success";
+NSString *const mStatusError = @"error";
 
 //Error types
-NSString *const errorInitialize = @"error initialize";
-NSString *const errorCreateService = @"create service";
-NSString *const errorArguments = @"arguments";
+NSString *const mErrorInitialize = @"error initialize";
+NSString *const mErrorCreateService = @"create service";
+NSString *const mErrorArguments = @"arguments";
 
 //Error Messages
 
 //Initialization
-NSString *const logPoweredOff = @"Bluetooth powered off";
-NSString *const logUnauthorized = @"Bluetooth unauthorized";
-NSString *const logUnknown = @"Bluetooth unknown state";
-NSString *const logResetting = @"Bluetooth resetting";
-NSString *const logUnsupported = @"Bluetooth unsupported";
-NSString *const logNotInit = @"Bluetooth not initialized";
+NSString *const mLogPoweredOff = @"Bluetooth powered off";
+NSString *const mLogUnauthorized = @"Bluetooth unauthorized";
+NSString *const mLogUnknown = @"Bluetooth unknown state";
+NSString *const mLogResetting = @"Bluetooth resetting";
+NSString *const mLogUnsupported = @"Bluetooth unsupported";
+NSString *const mLogNotInit = @"Bluetooth not initialized";
 //Characteristic
-NSString *const logInvalidUuid = @"invalid uuid";
-NSString *const logInvalidService = @"Could not link characteristic to service";
-NSString *const logNoArgObj = @"Argument object not found";
-NSString *const logAlreadyAdvertising = @"Already Advertising";
+NSString *const mLogInvalidUuid = @"invalid uuid";
+NSString *const mLogInvalidService = @"Could not link characteristic to service";
+NSString *const mLogNoArgObj = @"Argument object not found";
+NSString *const mLogAlreadyAdvertising = @"Already Advertising";
 
 
 
@@ -65,7 +65,7 @@ NSString *const logAlreadyAdvertising = @"Already Advertising";
     if (peripheralManager != nil && peripheralManager.state == CBPeripheralManagerStatePoweredOn)
     {
         NSLog(@"failed to initialize, why?");
-        NSDictionary* returnObj = [NSDictionary dictionaryWithObjectsAndKeys: statusInitialized, keyStatus, nil];
+        NSDictionary* returnObj = [NSDictionary dictionaryWithObjectsAndKeys: mStatusInitialized, mKeyStatus, nil];
         CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:returnObj];
         [pluginResult setKeepCallbackAsBool:false];
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
@@ -94,31 +94,31 @@ NSString *const logAlreadyAdvertising = @"Already Advertising";
     {
         case CBPeripheralManagerStatePoweredOff:
         {
-            error = logPoweredOff;
+            error = mLogPoweredOff;
             break;
         }
             
         case CBPeripheralManagerStateUnauthorized:
         {
-            error = logUnauthorized;
+            error = mLogUnauthorized;
             break;
         }
             
         case CBPeripheralManagerStateUnknown:
         {
-            error = logUnknown;
+            error = mLogUnknown;
             break;
         }
             
         case CBPeripheralManagerStateResetting:
         {
-            error = logResetting;
+            error = mLogResetting;
             break;
         }
             
         case CBPeripheralManagerStateUnsupported:
         {
-            error = logUnsupported;
+            error = mLogUnsupported;
             break;
         }
             
@@ -135,13 +135,13 @@ NSString *const logAlreadyAdvertising = @"Already Advertising";
     if (error != nil)
     {
         NSLog(@"an error in intialization");
-        returnObj = [NSDictionary dictionaryWithObjectsAndKeys: errorInitialize, keyStatus, error, keyError, nil];
+        returnObj = [NSDictionary dictionaryWithObjectsAndKeys: mErrorInitialize, mKeyStatus, error, mKeyError, nil];
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsDictionary:returnObj];
     }
     else
     {
         NSLog(@"no error in intialization");
-        returnObj = [NSDictionary dictionaryWithObjectsAndKeys: statusInitialized, keyStatus, nil];
+        returnObj = [NSDictionary dictionaryWithObjectsAndKeys: mStatusInitialized, mKeyStatus, nil];
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:returnObj];
     }
     
@@ -177,7 +177,7 @@ NSString *const logAlreadyAdvertising = @"Already Advertising";
 //
 //    if (uuid == nil || ![self isUUID: uuid] )
 //    {
-//        returnObj = [NSDictionary dictionaryWithObjectsAndKeys: errorCreateService, keyError, logInvalidUuid, keyMessage, nil];
+//        returnObj = [NSDictionary dictionaryWithObjectsAndKeys: mErrorCreateService, mKeyError, mLogInvalidUuid, mKeyMessage, nil];
 //        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsDictionary:returnObj];
 //        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 //        return;
@@ -201,9 +201,9 @@ NSString *const logAlreadyAdvertising = @"Already Advertising";
     //get rid of this check
     if([peripheralManager isAdvertising]){
         
-        NSDictionary* returnObj = [NSDictionary dictionaryWithObjectsAndKeys: statusAdvertising, keyStatus,
-                                   statusError, keyStatus,
-                                   logAlreadyAdvertising, keyMessage,
+        NSDictionary* returnObj = [NSDictionary dictionaryWithObjectsAndKeys: mStatusAdvertising, mKeyStatus,
+                                   mStatusError, mKeyStatus,
+                                   mLogAlreadyAdvertising, mKeyMessage,
                                    nil];
         
         CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsDictionary:returnObj];
@@ -226,8 +226,8 @@ NSString *const logAlreadyAdvertising = @"Already Advertising";
         return;
     }
     
-    NSString* service_uuid = [obj objectForKey:keyService];
-    NSString* characteristic_uuid = [obj objectForKey:keyCharacteristic];
+    NSString* service_uuid = [obj objectForKey:mKeyService];
+    NSString* characteristic_uuid = [obj objectForKey:mKeyCharacteristic];
     NSData* value = [self getValue:obj];
     
     NSDictionary* returnObj = nil;
@@ -236,7 +236,7 @@ NSString *const logAlreadyAdvertising = @"Already Advertising";
     if (service_uuid == nil ) //|| ![self isUUID: service_uuid]
     {
         NSLog(@"returned service was nil or not a UUID");
-        returnObj = [NSDictionary dictionaryWithObjectsAndKeys: errorCreateService, keyError, logInvalidUuid, keyMessage, nil];
+        returnObj = [NSDictionary dictionaryWithObjectsAndKeys: mErrorCreateService, mKeyError, mLogInvalidUuid, mKeyMessage, nil];
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsDictionary:returnObj];
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
         return;
@@ -246,7 +246,7 @@ NSString *const logAlreadyAdvertising = @"Already Advertising";
     if(characteristic_uuid == nil  ) //|| ![self isUUID: characteristic_uuid]
     {
         NSLog(@"returned characteristic was nil or not a UUID");
-        returnObj = [NSDictionary dictionaryWithObjectsAndKeys: errorCreateService, keyError, logInvalidUuid, keyMessage, nil];
+        returnObj = [NSDictionary dictionaryWithObjectsAndKeys: mErrorCreateService, mKeyError, mLogInvalidUuid, mKeyMessage, nil];
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsDictionary:returnObj];
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
         return;
@@ -295,9 +295,9 @@ NSString *const logAlreadyAdvertising = @"Already Advertising";
     
     if(error != nil){
         NSLog(@"error in add service");
-        NSDictionary* returnObj = [NSDictionary dictionaryWithObjectsAndKeys: service.UUID.representativeString , keyAddress,
-                                   statusError, keyStatus,
-                                   error.description, keyMessage,
+        NSDictionary* returnObj = [NSDictionary dictionaryWithObjectsAndKeys: service.UUID.representativeString , mKeyAddress,
+                                   mStatusError, mKeyStatus,
+                                   error.description, mKeyMessage,
                                    nil];
         CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsDictionary:returnObj];
         [pluginResult setKeepCallbackAsBool:false];
@@ -307,8 +307,8 @@ NSString *const logAlreadyAdvertising = @"Already Advertising";
         
     }
     
-    NSDictionary* returnObj = [NSDictionary dictionaryWithObjectsAndKeys: service.UUID.representativeString , keyAddress,
-                               statusSuccess, keyStatus,
+    NSDictionary* returnObj = [NSDictionary dictionaryWithObjectsAndKeys: service.UUID.representativeString , mKeyAddress,
+                               mStatusSuccess, mKeyStatus,
                                nil];
     
     CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:returnObj];
@@ -336,7 +336,7 @@ NSString *const logAlreadyAdvertising = @"Already Advertising";
         return;
     }
     
-    NSString* localName = [obj objectForKey:keyName ];
+    NSString* localName = [obj objectForKey:mKeyName ];
     
     if(localName == nil){
         NSLog(@"name is empty");
@@ -344,9 +344,9 @@ NSString *const logAlreadyAdvertising = @"Already Advertising";
     }
     
     if([peripheralManager isAdvertising]){
-        NSDictionary* returnObj = [NSDictionary dictionaryWithObjectsAndKeys: statusAdvertising, keyStatus,
-                                   statusError, keyStatus,
-                                   logAlreadyAdvertising, keyMessage,
+        NSDictionary* returnObj = [NSDictionary dictionaryWithObjectsAndKeys: mStatusAdvertising, mKeyStatus,
+                                   mStatusError, mKeyStatus,
+                                   mLogAlreadyAdvertising, mKeyMessage,
                                    nil];
         
         CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsDictionary:returnObj];
@@ -374,9 +374,9 @@ NSString *const logAlreadyAdvertising = @"Already Advertising";
     
     
     if(error != nil){
-        NSDictionary* returnObj = [NSDictionary dictionaryWithObjectsAndKeys: statusAdvertising, keyStatus,
-                                   statusError, keyStatus,
-                                   error.description, keyMessage,
+        NSDictionary* returnObj = [NSDictionary dictionaryWithObjectsAndKeys: mStatusAdvertising, mKeyStatus,
+                                   mStatusError, mKeyStatus,
+                                   error.description, mKeyMessage,
                                    nil];
         
         CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsDictionary:returnObj];
@@ -387,7 +387,7 @@ NSString *const logAlreadyAdvertising = @"Already Advertising";
         
     }
     
-    NSDictionary* returnObj = [NSDictionary dictionaryWithObjectsAndKeys: statusAdvertising, keyStatus, nil];
+    NSDictionary* returnObj = [NSDictionary dictionaryWithObjectsAndKeys: mStatusAdvertising, mKeyStatus, nil];
     CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:returnObj];
     //Keep in case device gets disconnected without user initiation
     [pluginResult setKeepCallbackAsBool:false];
@@ -424,7 +424,7 @@ NSString *const logAlreadyAdvertising = @"Already Advertising";
 {
     if (peripheralManager == nil || peripheralManager.state != CBPeripheralManagerStatePoweredOn)
     {
-        NSDictionary* returnObj = [NSDictionary dictionaryWithObjectsAndKeys: errorInitialize, keyStatus, logNotInit, keyError, nil];
+        NSDictionary* returnObj = [NSDictionary dictionaryWithObjectsAndKeys: mErrorInitialize, mKeyStatus, mLogNotInit, mKeyError, nil];
         CDVPluginResult *pluginResult = nil;
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:returnObj];
         [pluginResult setKeepCallbackAsBool:false];
@@ -453,7 +453,7 @@ NSString *const logAlreadyAdvertising = @"Already Advertising";
 {
     NSLog(@"getting value and turing it into data");
     
-    NSString* string = [obj objectForKey:keyValue];
+    NSString* string = [obj objectForKey:mKeyValue];
     
     NSLog(string);
     
@@ -476,7 +476,7 @@ NSString *const logAlreadyAdvertising = @"Already Advertising";
 {
     NSLog(@"getting a UUID");
     
-    NSString* checkUuid = [obj valueForKey:(keyUUID)];
+    NSString* checkUuid = [obj valueForKey:(mKeyUUID)];
     
     CBUUID* uuid;
     
@@ -499,7 +499,7 @@ NSString *const logAlreadyAdvertising = @"Already Advertising";
         return false;
     }
     
-    NSDictionary* returnObj = [NSDictionary dictionaryWithObjectsAndKeys: errorArguments, keyError, logNoArgObj, keyMessage, nil];
+    NSDictionary* returnObj = [NSDictionary dictionaryWithObjectsAndKeys: mErrorArguments, mKeyError, mLogNoArgObj, mKeyMessage, nil];
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsDictionary:returnObj];
     [pluginResult setKeepCallbackAsBool:false];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
