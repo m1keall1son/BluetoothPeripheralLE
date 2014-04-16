@@ -1,6 +1,6 @@
 //
 //  BluetoothPeripheralLE.h
-//  
+//
 //
 //  Created by Mike Allison on 4/9/14.
 //
@@ -14,11 +14,12 @@
 {
     NSString* initCallback;
     NSString* operationCallback;
-
-   // NSArray* activeServices;
+    
+    // NSArray* activeServices;
     //NSArray* activeCharacteristics;
-    CBService* currentService;
-    CBCharacteristic* currentCharacteristic;
+    CBMutableService* currentService;
+    CBMutableCharacteristic* currentCharacteristic;
+    CBDescriptor* currentDescriptor;
     CBPeripheralManager* peripheralManager;
 }
 
@@ -28,6 +29,10 @@
 
 - (void)advertise:(CDVInvokedUrlCommand *)command;
 
+- (void)isInitialized:(CDVInvokedUrlCommand *)command;
+
+
+- (BOOL) isNotInitialized:(CDVInvokedUrlCommand *)command;
 
 //- (void)createService:(CDVInvokedUrlCommand *)command;
 //- (void)deleteService:(CDVInvokedUrlCommand *)command;
