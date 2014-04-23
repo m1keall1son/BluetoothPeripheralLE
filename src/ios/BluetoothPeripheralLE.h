@@ -29,6 +29,8 @@
 
 - (void)advertise:(CDVInvokedUrlCommand *)command;
 
+- (void)stopAdvertise:(CDVInvokedUrlCommand *)command;
+
 - (void)isInitialized:(CDVInvokedUrlCommand *)command;
 
 

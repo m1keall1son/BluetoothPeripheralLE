@@ -22,6 +22,7 @@ NSString *const mKeyName = @"name";
 //Status types
 NSString *const mStatusInitialized = @"initialized";
 NSString *const mStatusAdvertising = @"advertising";
+NSString *const mStatusNeutral = @"neutral";
 NSString *const mStatusSuccess = @"success";
 NSString *const mStatusError = @"error";
 
@@ -317,6 +318,15 @@ NSString *const mLogAlreadyAdvertising = @"Already Advertising";
     [self.commandDelegate sendPluginResult:pluginResult callbackId:operationCallback];
     operationCallback = nil;
     
+}
+
+- (void)stopAdvertise:(CDVInvokedUrlCommand *)command
+{
+    NSDictionary* returnObj = [NSDictionary dictionaryWithObjectsAndKeys: mStatusNeutral, mKeyStatus,nil];
+    CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:returnObj];
+    [pluginResult setKeepCallbackAsBool:false];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    [peripheralManager stopAdvertising]
 }
 
 - (void)advertise:(CDVInvokedUrlCommand *)command

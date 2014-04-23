@@ -8,6 +8,9 @@ var bluetoothperipheral = {
   },
   advertise: function(params, successCallback, errorCallback) {
     cordova.exec(successCallback, errorCallback, bluetoothleName, "advertise", [params]); 
+  },
+  stopAdvertising: function(successCallback, errorCallback) {
+    cordova.exec(successCallback, errorCallback, bluetoothleName, "stopAdvertise", []); 
   }
 }
 module.exports = bluetoothperipheral;
