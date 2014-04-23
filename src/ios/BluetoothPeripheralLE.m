@@ -326,7 +326,7 @@ NSString *const mLogAlreadyAdvertising = @"Already Advertising";
     CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:returnObj];
     [pluginResult setKeepCallbackAsBool:false];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-    [peripheralManager stopAdvertising]
+    [peripheralManager stopAdvertising];
 }
 
 - (void)advertise:(CDVInvokedUrlCommand *)command
